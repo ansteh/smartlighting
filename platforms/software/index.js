@@ -2,4 +2,8 @@
 
 const network = require('./network');
 
-network.trainWithLog();
+//network.trainWithLog();
+
+module.exports = {
+  train: network.train
+};

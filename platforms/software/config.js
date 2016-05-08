@@ -52,6 +52,7 @@ const trainerOptions = {
 };
 
 module.exports = {
+  count: 1000,
   trainer: trainerOptions,
   transition: transition,
   mockdata: mockdata,

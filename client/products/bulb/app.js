@@ -54,6 +54,10 @@ app.directive('bulb', function(BulbStates, Socket){
           name: $scope.item.name
         });
       };
+
+      Socket.on('trained', function(result){
+        console.log(result);
+      });
     }
   };
 });

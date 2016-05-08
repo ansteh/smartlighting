@@ -11,17 +11,18 @@ const db      = low(path.resolve(__dirname, './bulbs.json'), { storage });
     series: [{
       bri: 123,
       date: 'valueOf'
-    }]
+    }],
+    network: 'json'
  }
 */
 
-/*exports.all = function(){
-  return db('jobs').value();
-};
-
-exports.findByQuery = function(query){
+exports.findByName = function(query){
   let result = _.find(exports.all(), { query: query });
   return result;
+};
+
+/*exports.all = function(){
+  return db('jobs').value();
 };
 
 exports.has = function(query){

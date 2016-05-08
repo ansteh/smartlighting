@@ -87,9 +87,13 @@ var imported = Network.fromJSON(exported);*/
 
 module.exports = {
   trainWithLog: function(){
-    let sets = createSets(1000);
+    let sets = createSets(config.count);
     let network = trainBy(sets.train);
     logResult(network, sets.test);
     return network;
+  },
+  train: function(cb){
+    let sets = createSets(config.count);
+    return trainBy(sets.train);
   }
 };

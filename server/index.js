@@ -10,7 +10,11 @@ module.exports = function(server){
 
     socket.on('train', function(product){
       console.log(product);
-      software.trainWithLog();
+      let network = software.train();
+      socket.emit('trained', network.toJSON());
+      /*function(network){
+        console.log(network.toJSON());
+      }*/
       //socket.emit('missing-indeed-key');
     });
 
