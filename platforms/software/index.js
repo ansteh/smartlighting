@@ -1,5 +1,5 @@
 'use strict';
-const mock   = require('./services/mock-data');
+const mock   = require('./mock-data');
 const _      = require('lodash');
 const moment = require('moment');
 const pact = require('brain-pact');
