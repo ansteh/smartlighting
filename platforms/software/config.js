@@ -43,7 +43,7 @@ const Architect = synaptic.Architect;
 //console.log(Trainer.cost);
 
 const trainerOptions = {
-    rate: 0.1,
+    rate: 0.3,
     iterations: 10000,
     error: 0.01,
     //shuffle: true,
