@@ -27,12 +27,12 @@ app.directive('bulbInsight', function(){
         reach: true,
         power: true,
         control: true
-      }, {
+      }/*, {
         name: 'Bulb 2',
         reach: false,
         power: true,
         control: true
-      }];
+      }*/];
     }
   };
 });

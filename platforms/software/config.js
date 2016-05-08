@@ -1,6 +1,6 @@
 'use strict';
 
-let inputOptions = {
+const transition = {
   date: {
     type: 'date',
     pattern: ['month', 'week', 'day', 'hour']
@@ -13,7 +13,7 @@ let inputOptions = {
   }
 };
 
-let mockdata = {
+const mockdata = {
   /*dates: {
     1: { hours: hours },
     2: { hours: hours },
@@ -37,18 +37,27 @@ let mockdata = {
   }
 };
 
-const Trainer = require('synaptic').Trainer;
-var trainerOptions = {
+const synaptic  = require('synaptic');
+const Trainer   = synaptic.Trainer;
+const Architect = synaptic.Architect;
+//console.log(Trainer.cost);
+
+const trainerOptions = {
     rate: 0.1,
-    iterations: 20000,
-    error: 0.001,
-    shuffle: true,
+    iterations: 10000,
+    error: 0.01,
+    //shuffle: true,
     log: 1000,
     cost: Trainer.cost.CROSS_ENTROPY
 };
 
 module.exports = {
   trainer: trainerOptions,
-  transition: inputOptions,
-  mockdata: mockdata
+  transition: transition,
+  mockdata: mockdata,
+  network: function(){
+    let network = new Architect.Perceptron(5, 6, 3, 1);
+    //let network = new Architect.LSTM(2,4,4,4,1);
+    return network;
+  }
 };

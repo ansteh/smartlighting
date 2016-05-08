@@ -30,6 +30,7 @@
     "moment": "^2.13.0",
     "philips-hue": "^1.1.11",
     "random-js": "^1.0.8",
+    "socket.io": "^1.4.6",
     "synaptic": "^1.0.2",
     "write-json-file": "^2.0.0"
   },

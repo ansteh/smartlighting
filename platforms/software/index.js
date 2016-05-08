@@ -7,12 +7,9 @@ const pact   = require('brain-pact');
 const mock   = require('./mock-data');
 const config = require('./config.js');
 
-let inputOptions = config.transition;
-let options = config.mockdata;
+let transition = pact.employ(config.transition);
 
-let transition = pact.employ(inputOptions);
-
-let fake = mock(options);
+let fake = mock(config.mockdata);
 
 function parseDate(date, schema){
   let instance = moment(date);
@@ -28,7 +25,7 @@ function mockDataSet(count){
   return _.map(data, function(point){
     point.date = new Date(point.date);
     let prepared = transition.prepare(point);
-    let input = _.values(_.pick(prepared, inputOptions.date.pattern));
+    let input = _.values(_.pick(prepared, config.transition.date.pattern));
     input.push(prepared.meetings);
 
     return {
@@ -55,13 +52,9 @@ function test(count){
   let trainingsSet = _.slice(mockedDataSet, 0, limit);
   let testSet = _.slice(mockedDataSet, limit);
 
-  var network = new Architect.Perceptron(5, 3, 1);
 
+  var network = config.network();
   var trainer = new Trainer(network);
-
-  var finished = function(result){
-    console.log(result);
-  }
 
   trainer.train(trainingsSet, config.trainer);
 

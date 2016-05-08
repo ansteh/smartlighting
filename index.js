@@ -3,7 +3,7 @@
 const express        = require('express');
 const app            = express();
 const path           = require('path');
-const fs             = require('fs');
+const socket         = require('./server');
 
 app.use(`/client`, express.static(path.join(__dirname, `/client`)));
 
@@ -12,6 +12,9 @@ app.get('/', function(req, res){
 });
 
 const server = require('http').Server(app);
+
+socket(server);
+
 server.listen(3000, function(){
   console.log('listening on *:3000');
 });
