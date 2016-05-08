@@ -1,0 +1,29 @@
+{
+  "name": "smartlighting",
+  "version": "0.0.0",
+  "description": "a smart light control system as web service featuring Philips Hue API and synaptic.js",
+  "main": "index.js",
+  "scripts": {},
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ansteh/smartlighting.git"
+  },
+  "keywords": [
+    "lighting",
+    "control system",
+    "web service"
+  ],
+  "author": "Andre Stehle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ansteh/smartlighting/issues"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "lodash": "^4.11.2"
+  },
+  "devDependencies": {}
+}
