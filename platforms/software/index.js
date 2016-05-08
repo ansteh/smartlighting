@@ -46,18 +46,28 @@ function error(before, after){
   return Math.abs(after/before-1);
 };
 
-function test(count){
+function createSets(count){
   let mockedDataSet = mockDataSet(count);
   let limit = count*0.9;
   let trainingsSet = _.slice(mockedDataSet, 0, limit);
   let testSet = _.slice(mockedDataSet, limit);
 
+  return {
+    train: trainingsSet,
+    test: testSet
+  }
+};
 
-  var network = config.network();
-  var trainer = new Trainer(network);
+function trainBy(set){
+  let network = config.network();
+  let trainer = new Trainer(network);
 
-  trainer.train(trainingsSet, config.trainer);
+  trainer.train(set, config.trainer);
 
+  return network;
+};
+
+function logResult(network, testSet){
   _.forEach(testSet, function(point){
     let output = network.activate(point.input);
     let simulated = transition.reverse({ bri: point.output[0] }).bri;
@@ -68,4 +78,15 @@ function test(count){
   });
 };
 
-test(1000);
+/*let sets = createSets(1000);
+let network = trainBy(sets.train);
+logResult(network, sets.test);*/
+
+module.exports = {
+  trainWithLog: function(){
+    let sets = createSets(1000);
+    let network = trainBy(sets.train);
+    logResult(network, sets.test);
+    return network;
+  }
+};

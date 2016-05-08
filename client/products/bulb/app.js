@@ -37,7 +37,7 @@ app.directive('bulbInsight', function(){
   };
 });
 
-app.directive('bulb', function(BulbStates){
+app.directive('bulb', function(BulbStates, Socket){
   return {
     restrict: 'E',
     templateUrl: 'client/products/bulb/instance.tpl.html',
@@ -49,6 +49,11 @@ app.directive('bulb', function(BulbStates){
         return BulbStates.valueOf($scope.item, state, entity);
       };
 
+      $scope.train = function(){
+        Socket.emit('train', {
+          name: $scope.item.name
+        });
+      };
     }
   };
 });
