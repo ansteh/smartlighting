@@ -12,6 +12,10 @@
     <div style="width: 600px; margin: auto;">
       <bulb-insight></bulb-insight>
     </div>
+    <div style="width: 600px; margin: auto;">
+        <div id="meetings" style="height: 400px;"></div>
+        <div id="hours"></div>
+    </div>
   </body>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.8.0/metricsgraphics.min.css">
 
@@ -20,6 +24,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.8.0/metricsgraphics.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.11.1/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
@@ -27,7 +32,19 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.js"></script>
 
   <script src="/client/app.js"></script>
-
   <script src="/client/products/bulb/schemas/instance-states.js"></script>
   <script src="/client/products/bulb/app.js"></script>
+
+  <script src="/client/graphics/scatterplot/graphics.js"></script>
+  <script>
+    jQuery(document).ready(function(){
+      var Meetings = Graphics.meetings('#meetings');
+      var Hours = Graphics.hours('#hours');
+
+      jQuery.getJSON('/client/graphics/scatterplot/data.json', function(data){
+        Meetings.render(data);
+        Hours.render(data);
+      });
+    });
+  </script>
 </html>
