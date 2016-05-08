@@ -16,30 +16,36 @@ const db      = low(path.resolve(__dirname, './bulbs.json'), { storage });
  }
 */
 
-exports.findByName = function(query){
-  let result = _.find(exports.all(), { query: query });
-  return result;
+const Bulbs = {
+  table: 'bulbs'
 };
 
-/*exports.all = function(){
-  return db('jobs').value();
+Bulbs.all = function(){
+  return db(Bulbs.table).value();
 };
 
-exports.has = function(query){
-  return _.isUndefined(exports.findByQuery(query)) === false;
+Bulbs.findByName = function(name){
+  return _.find(Bulbs.all(), { name: name });
 };
 
-exports.save = function(result){
-  if(_.isUndefined(result)) return;
-  //console.log('has query', exports.has(result.query));
-  if(exports.has(result.query) === false){
+Bulbs.has = function(name){
+  return _.isUndefined(Bulbs.findByName(name)) === false;
+};
 
-    db('jobs').push(result);
+Bulbs.insertNetwork = function(name, json){
+  return db(Bulbs.table)
+    .chain()
+    .find({ name: name })
+    .assign({ network: json})
+    .value();
+};
+
+Bulbs.save = function(bulb){
+  if(_.isUndefined(bulb)) return;
+  console.log(Bulbs.has(bulb.name));
+  if(Bulbs.has(bulb.name) === false){
+    db(Bulbs.table).push(bulb);
   }
 };
 
-exports.queries = function(){
-  return _.map(exports.all(), function(jobs){
-    return jobs.query;
-  });
-};*/
+module.exports = Bulbs;

@@ -10,7 +10,7 @@ module.exports = function(server){
 
     socket.on('train', function(product){
       console.log(product);
-      let network = software.train();
+      let network = software.train(product);
       socket.emit('trained', network.toJSON());
       /*function(network){
         console.log(network.toJSON());
