@@ -75,6 +75,10 @@ var Neuron = synaptic.Neuron,
 	Trainer = synaptic.Trainer,
 	Architect = synaptic.Architect;
 
+function error(before, after){
+  return Math.abs(after/before-1);
+};
+
 function test(count){
   let mockedDataSet = mockDataSet(count);
   let limit = count*0.9;
@@ -90,17 +94,21 @@ function test(count){
   }
 
   trainer.train(trainingsSet, {
-      rate: 0.1,
-      iterations: 20000,
-      error: 0.001,
-      shuffle: true,
+      rate: 0.3,
+      iterations: 10000,
+      error: 0.01,
+      //shuffle: true,
       log: 1000,
       cost: Trainer.cost.CROSS_ENTROPY
   });
 
   _.forEach(testSet, function(point){
     let output = network.activate(point.input);
-    console.log(point, transition.reverse({ bri: point.output[0] }), transition.reverse({ bri: output[0] }));
+    let simulated = transition.reverse({ bri: point.output[0] }).bri;
+    let forcast = transition.reverse({ bri: output[0] }).bri;
+
+    //console.log(point, simulated, forcast);
+    console.log(error(simulated, forcast), simulated, forcast);
   });
 };
 
