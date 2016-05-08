@@ -1,3 +1,5 @@
+'use strict';
+
 let inputOptions = {
   date: {
     type: 'date',
@@ -10,9 +12,8 @@ let inputOptions = {
     weight: 10
   }
 };
-let transition = pact.employ(inputOptions);
 
-let options = {
+let mockdata = {
   /*dates: {
     1: { hours: hours },
     2: { hours: hours },
@@ -36,13 +37,18 @@ let options = {
   }
 };
 
-var network = new Architect.Perceptron(5, 3, 1);
-
-var trainOptions = {
+const Trainer = require('synaptic').Trainer;
+var trainerOptions = {
     rate: 0.1,
     iterations: 20000,
     error: 0.001,
     shuffle: true,
     log: 1000,
     cost: Trainer.cost.CROSS_ENTROPY
+};
+
+module.exports = {
+  trainer: trainerOptions,
+  transition: inputOptions,
+  mockdata: mockdata
 };
