@@ -18,6 +18,10 @@ module.exports = function(server){
       //socket.emit('missing-indeed-key');
     });
 
+    socket.on('forecast', function(product){
+      socket.emit('forecast', software.forecast(product));
+    });
+
     socket.on('disconnect', function(){
       //console.log('Socket closed!');
     });

@@ -1,19 +1,30 @@
 'use strict';
 
 const network = require('./network');
-const storage = require('./storage');
+const Bulb = require('./products/bulb');
+
+const Bulbs = new Map();
+
 //network.trainWithLog();
 
+const getBulbBy = function(product){
+  if(Bulbs.has(product.name) === false){
+    Bulbs.set(product.name, new Bulb(product));
+  }
+  return Bulbs.get(product.name);
+};
+
 const train = function(product){
-  storage.Bulbs.save(product);
+  let bulb = getBulbBy(product);
   let net = network.train();
-  storage.Bulbs.insertNetwork(product.name, net.toJSON());
+  bulb.saveNetwork(net);
 
   return net;
 };
 
 const forecast = function(product){
-  let bulb = storage.Bulbs.findByName(product.name);
+  let bulb = getBulbBy(product);
+  return bulb;
 };
 
 module.exports = {

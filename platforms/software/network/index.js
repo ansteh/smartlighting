@@ -95,5 +95,8 @@ module.exports = {
   train: function(cb){
     let sets = createSets(config.count);
     return trainBy(sets.train);
+  },
+  import: function(json){
+    return Network.fromJSON(json);
   }
 };

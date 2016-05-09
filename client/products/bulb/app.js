@@ -58,6 +58,16 @@ app.directive('bulb', function(BulbStates, Socket){
       Socket.on('trained', function(result){
         console.log(result);
       });
+
+      $scope.forecast = function(){
+        Socket.emit('forecast', {
+          name: $scope.item.name
+        });
+      };
+
+      Socket.on('forecast', function(result){
+        console.log(result);
+      });
     }
   };
 });

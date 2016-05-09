@@ -42,7 +42,6 @@ Bulbs.insertNetwork = function(name, json){
 
 Bulbs.save = function(bulb){
   if(_.isUndefined(bulb)) return;
-  console.log(Bulbs.has(bulb.name));
   if(Bulbs.has(bulb.name) === false){
     db(Bulbs.table).push(bulb);
   }
