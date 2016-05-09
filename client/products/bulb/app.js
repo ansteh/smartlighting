@@ -49,13 +49,13 @@ app.directive('bulb', function(BulbStates, Socket){
         return BulbStates.valueOf($scope.item, state, entity);
       };
 
+      var ForecastChart = Graphics.dayforecast($element.find('#forecast')[0]);
       Socket.emit('day-forecast', {
         name: $scope.item.name
       });
 
-      var ForecastChart = Graphics.dayforecast($element.find('#forecast')[0]);
       Socket.on('day-forecast', function(result){
-        console.log(result);
+        //console.log(result);
         ForecastChart.render(result);
       });
 
