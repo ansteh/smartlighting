@@ -12,6 +12,11 @@ const train = function(product){
   return net;
 };
 
+const forecast = function(product){
+  let bulb = storage.Bulbs.findByName(product.name);
+};
+
 module.exports = {
-  train: train
+  train: train,
+  forecast: forecast
 };
