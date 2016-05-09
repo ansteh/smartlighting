@@ -24,7 +24,7 @@ const train = function(product){
 
 const forecast = function(product){
   let bulb = getBulbBy(product);
-  return bulb;
+  return bulb.forecast();
 };
 
 module.exports = {

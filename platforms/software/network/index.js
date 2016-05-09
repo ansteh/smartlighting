@@ -8,7 +8,6 @@ const mock   = require('../mock-data');
 const config = require('../config.js');
 
 let transition = pact.employ(config.transition);
-
 let fake = mock(config.mockdata);
 
 function parseDate(date, schema){
@@ -85,6 +84,13 @@ logResult(network, sets.test);
 var exported = myNetwork.toJSON();
 var imported = Network.fromJSON(exported);*/
 
+function prepareInputData(point){
+  let prepared = transition.prepare(point);
+  let input = _.values(_.pick(prepared, config.transition.date.pattern));
+  input.push(prepared.meetings);
+  return input;
+};
+
 module.exports = {
   trainWithLog: function(){
     let sets = createSets(config.count);
@@ -98,5 +104,14 @@ module.exports = {
   },
   import: function(json){
     return Network.fromJSON(json);
+  },
+  forecast: function(network, meetings, date){
+    if(_.isUndefined(date)) date = Date.now();
+    let input = prepareInputData({ meetings: meetings, date: date });
+    let output = network.activate(input);
+    return transition.reverse({ bri: output[0] });
+  },
+  forerange: function(network, meetings, dates){
+
   }
 };
