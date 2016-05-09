@@ -42,12 +42,22 @@ app.directive('bulb', function(BulbStates, Socket){
     restrict: 'E',
     templateUrl: 'client/products/bulb/instance.tpl.html',
     scope: { item: '=' },
-    controller: function($scope){
+    controller: function($scope, $element){
       $scope.states = BulbStates.states;
 
       $scope.getStateValue = function(state, entity){
         return BulbStates.valueOf($scope.item, state, entity);
       };
+
+      Socket.emit('day-forecast', {
+        name: $scope.item.name
+      });
+
+      var ForecastChart = Graphics.dayforecast($element.find('#forecast')[0]);
+      Socket.on('day-forecast', function(result){
+        console.log(result);
+        ForecastChart.render(result);
+      });
 
       $scope.train = function(){
         Socket.emit('train', {

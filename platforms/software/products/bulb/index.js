@@ -25,4 +25,10 @@ Bulb.prototype.forecast = function(date){
   return Network.forecast(this.instance.network, meetings, date);
 };
 
+Bulb.prototype.getDayForecast = function(){
+  let meetings = 6;
+  return Network.getDayForecast(this.instance.network, meetings);
+  //return Network.forecast(this.instance.network, meetings, date);
+};
+
 module.exports = Bulb;

@@ -9,17 +9,16 @@ module.exports = function(server){
   io.on('connection', function(socket){
 
     socket.on('train', function(product){
-      console.log(product);
       let network = software.train(product);
       socket.emit('trained', network.toJSON());
-      /*function(network){
-        console.log(network.toJSON());
-      }*/
-      //socket.emit('missing-indeed-key');
     });
 
     socket.on('forecast', function(product){
       socket.emit('forecast', software.forecast(product));
+    });
+
+    socket.on('day-forecast', function(product){
+      socket.emit('day-forecast', software.getDayForecastOf(product));
     });
 
     socket.on('disconnect', function(){

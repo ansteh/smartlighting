@@ -79,3 +79,25 @@ Graphics.hours = function(target){
 
   return Graphics.scatter(options);
 };
+
+Graphics.dayforecast = function(target){
+  function enhance(series){
+    series = _.map(series, function(data){
+      return {
+        date: new Date(data.date),
+        bri: data.bri
+      };
+    });
+    return series;
+  };
+
+  var options =  {
+    target: target,
+    title: "Forecast",
+    enhance: enhance,
+    x_accessor: 'date',
+    y_accessor: 'bri'
+  };
+
+  return Graphics.scatter(options);
+};

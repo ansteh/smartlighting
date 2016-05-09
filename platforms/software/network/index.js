@@ -84,11 +84,26 @@ logResult(network, sets.test);
 var exported = myNetwork.toJSON();
 var imported = Network.fromJSON(exported);*/
 
-function prepareInputData(point){
+function prepare(point){
   let prepared = transition.prepare(point);
   let input = _.values(_.pick(prepared, config.transition.date.pattern));
   input.push(prepared.meetings);
   return input;
+};
+
+function reverse(result){
+  return transition.reverse({ bri: result[0] });
+};
+
+function createDayMarks(){
+  let current = moment().hours(0).minutes(0).seconds(0).milliseconds(0);
+  let tomorrow = moment().hours(0).minutes(0).seconds(0).milliseconds(0).add(1, 'days');
+  let dates = [];
+  while(current.isBefore(tomorrow)){
+    dates.push(current.toDate().valueOf());
+    current.add(5, 'minutes');
+  }
+  return dates;
 };
 
 module.exports = {
@@ -107,11 +122,17 @@ module.exports = {
   },
   forecast: function(network, meetings, date){
     if(_.isUndefined(date)) date = Date.now();
-    let input = prepareInputData({ meetings: meetings, date: date });
-    let output = network.activate(input);
-    return transition.reverse({ bri: output[0] });
+    let input = prepare({ meetings: meetings, date: date });
+    return reverse(network.activate(input));
   },
-  forerange: function(network, meetings, dates){
-
+  getDayForecast: function(network, meetings){
+    meetings = 6;
+    return _.map(createDayMarks(), function(value){
+      let input = prepare({ meetings: meetings, date: new Date(value) });
+      return {
+        date: value,
+        bri: reverse(network.activate(input)).bri
+      };
+    });
   }
 };

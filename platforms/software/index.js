@@ -27,7 +27,13 @@ const forecast = function(product){
   return bulb.forecast();
 };
 
+const getDayForecastOf = function(product){
+  let bulb = getBulbBy(product);
+  return bulb.getDayForecast();
+};
+
 module.exports = {
   train: train,
-  forecast: forecast
+  forecast: forecast,
+  getDayForecastOf: getDayForecastOf
 };
