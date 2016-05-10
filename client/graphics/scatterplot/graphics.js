@@ -96,7 +96,9 @@ Graphics.dayforecast = function(target){
     title: "Forecast",
     enhance: enhance,
     x_accessor: 'date',
-    y_accessor: 'bri'
+    y_accessor: 'bri',
+    color_range: ['#fff'],
+    color_accessor: undefined
   };
 
   return Graphics.scatter(options);
