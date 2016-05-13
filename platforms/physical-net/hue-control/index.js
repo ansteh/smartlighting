@@ -13,7 +13,13 @@ function login(){
 };
 
 function getLights(){
-  return hue.getLights();
+  return getBridges()
+  .then(function(bridges){
+    if(bridges.length === 0) {
+      return {};
+    }
+    return hue.getLights();
+  });
 };
 
 function getLightByIndex(index){
@@ -45,11 +51,16 @@ function switchLight(index){
     });
 };
 
+function getBridges(){
+  return hue.getBridges();
+};
+
 module.exports = {
   login: login,
   getLights: getLights,
   getLightByIndex: getLightByIndex,
   getLightInfo: getLightInfo,
   setState: setState,
-  switchLight: switchLight
+  switchLight: switchLight,
+  getBridges: getBridges
 };

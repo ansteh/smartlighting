@@ -5,8 +5,12 @@ const physical = require('../platforms/physical-net');
 const software = require('../platforms/software');
 
 physical.login()
-.then(function(){
-  console.log('connected!');
+.then(function(conf){
+  console.log('connected!', conf);
+  physical.getBridges()
+  .then(function(bridges){
+    console.log(bridges);
+  });
 })
 .catch(function(err){
   console.log('login error', err);
@@ -35,7 +39,7 @@ module.exports = function(server){
     });
 
     socket.on('forecast', function(product){
-      console.log(product);
+      //console.log(product);
       socket.emit('forecast'+product.name, software.forecast(product));
     });
 
