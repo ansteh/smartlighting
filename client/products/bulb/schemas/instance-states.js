@@ -1,5 +1,5 @@
 var BulbStateSchema = {
-  reach: {
+  reachable: {
     message: {
       on: 'reachable',
       off: 'out of reach'
@@ -13,10 +13,10 @@ var BulbStateSchema = {
       off: ''
     }
   },
-  power: {
+  on: {
     message: {
-      on: 'powered',
-      off: ''
+      on: 'on',
+      off: 'off'
     },
     icon: {
       on: 'power',

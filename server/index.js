@@ -19,6 +19,9 @@ module.exports = function(server){
       //console.log(lights);
       console.log(Object.keys(lights) + "lights found!");
       socket.emit('lights', lights);
+    })
+    .catch(function(err){
+      socket.emit('lights');
     });
 
     socket.on('train', function(product){
@@ -27,11 +30,12 @@ module.exports = function(server){
     });
 
     socket.on('forecast', function(product){
-      socket.emit('forecast', software.forecast(product));
+      console.log(product);
+      socket.emit('forecast'+product.name, software.forecast(product));
     });
 
     socket.on('day-forecast', function(product){
-      socket.emit('day-forecast', software.getDayForecastOf(product));
+      socket.emit('day-forecast'+product.name, software.getDayForecastOf(product));
     });
 
     socket.on('disconnect', function(){

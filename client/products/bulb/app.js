@@ -24,19 +24,14 @@ app.directive('bulbInsight', function(Hue){
     controller: function($scope){
       Hue.onLights(function(lights){
         console.log('Here are the lights:', lights);
-      });
 
-      $scope.bulbs = [{
-        name: 'Bulb 1',
-        reach: true,
-        power: true,
-        control: true
-      }/*, {
-        name: 'Bulb 2',
-        reach: false,
-        power: true,
-        control: true
-      }*/];
+        if(_.keys(lights).length === 0){
+            $scope.bulbs = Hue.dummyBulbs;
+            $scope.$apply();
+        } else {
+          $scope.bulbs = lights;
+        }
+      });
     }
   };
 });
@@ -47,10 +42,12 @@ app.directive('bulb', function(BulbStates, Socket){
     templateUrl: 'client/products/bulb/instance.tpl.html',
     scope: { item: '=' },
     controller: function($scope, $element){
+      $scope.item.state.control = true;
+
       $scope.states = BulbStates.states;
 
       $scope.getStateValue = function(state, entity){
-        return BulbStates.valueOf($scope.item, state, entity);
+        return BulbStates.valueOf($scope.item.state, state, entity);
       };
 
       var ForecastChart = Graphics.dayforecast($element.find('#forecast')[0]);
@@ -58,7 +55,7 @@ app.directive('bulb', function(BulbStates, Socket){
         name: $scope.item.name
       });
 
-      Socket.on('day-forecast', function(result){
+      Socket.on('day-forecast'+$scope.item.name, function(result){
         //console.log(result);
         ForecastChart.render(result);
       });
@@ -70,7 +67,7 @@ app.directive('bulb', function(BulbStates, Socket){
       };
 
       Socket.on('trained', function(result){
-        console.log(result);
+        console.log('trained', result);
       });
 
       $scope.forecast = function(){
@@ -79,8 +76,8 @@ app.directive('bulb', function(BulbStates, Socket){
         });
       };
 
-      Socket.on('forecast', function(result){
-        console.log(result);
+      Socket.on('forecast'+$scope.item.name, function(result){
+        console.log('forecast', result);
       });
     }
   };

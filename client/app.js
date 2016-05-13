@@ -32,9 +32,19 @@ app.factory('Hue', function(Socket){
     events.publish('/lights', lights);
   });
 
+  var dummyBulbs = [{
+    name: 'Bulb 1',
+    state: {
+      reachable: true,
+      on: true,
+      control: true
+    }
+  }];
+  
   return {
     onLights: function(cb){
       events.subscribe('/lights', cb);
-    }
+    },
+    dummyBulbs: dummyBulbs
   };
 });
