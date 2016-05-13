@@ -85,4 +85,10 @@ Calendar.filter = function(start){
     return _.map(days, Calendar.deserialize);
 };
 
+Calendar.saveAll = function(days){
+  days.forEach(function(day){
+    Calendar.save(day);
+  });
+};
+
 module.exports = Calendar;

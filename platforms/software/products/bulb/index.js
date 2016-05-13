@@ -7,15 +7,18 @@ const moment   = require('moment');
 
 const Calendar = require('../../storage').Calendar;
 
-Calendar.save({
+/*Calendar.save({
   date: new Date(),
   meetings: 11
-});
+});*/
 
 /*Calendar.request()
 .then(console.log);*/
 
-console.log(Calendar.days(moment('01-14-2016', 'MM-DD-YYYY')));
+//console.log(Calendar.days(moment('01-14-2016', 'MM-DD-YYYY')));
+
+Calendar.requestAndSaveAll();
+
 
 var Bulb = function(product){
   if(Storage.has(product.name) === false){
