@@ -14,9 +14,6 @@ function login(){
     .then(function(conf){
       //let light = hue.light(2);
     })
-    .then(function(res){
-      console.log(res);
-    })
     .catch(function(err){
       console.error(err.stack || err);
     });
@@ -40,4 +37,10 @@ function setState(light, state){
     .catch(console.error);
 };
 
-module.exports = hue;
+module.exports = {
+  login: login,
+  getLights: getLights,
+  getLightByIndex: getLightByIndex,
+  getLightInfo: getLightInfo,
+  setState: setState
+};

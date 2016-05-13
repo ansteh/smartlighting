@@ -1,0 +1,32 @@
+{ '1':
+   { state: { on: false, bri: 0, alert: 'none', reachable: false },
+     type: 'Dimmable light',
+     name: 'Hue white lamp 1',
+     modelid: 'LWB006',
+     manufacturername: 'Philips',
+     swversion: '',
+     pointsymbol:
+      { '1': 'none',
+        '2': 'none',
+        '3': 'none',
+        '4': 'none',
+        '5': 'none',
+        '6': 'none',
+        '7': 'none',
+        '8': 'none' } },
+  '2':
+   { state: { on: true, bri: 112, alert: 'none', reachable: true },
+     type: 'Dimmable light',
+     name: 'Hue white lamp 2',
+     modelid: 'LWB006',
+     manufacturername: 'Philips',
+     swversion: '66015095',
+     pointsymbol:
+      { '1': 'none',
+        '2': 'none',
+        '3': 'none',
+        '4': 'none',
+        '5': 'none',
+        '6': 'none',
+        '7': 'none',
+        '8': 'none' } } }

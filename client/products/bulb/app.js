@@ -16,12 +16,16 @@ app.factory('BulbStates', function(){
   };
 });
 
-app.directive('bulbInsight', function(){
+app.directive('bulbInsight', function(Hue){
   return {
     restrict: 'E',
     templateUrl: 'client/products/bulb/insight.tpl.html',
     scope: {},
     controller: function($scope){
+      Hue.onLights(function(lights){
+        console.log('Here are the lights:', lights);
+      });
+
       $scope.bulbs = [{
         name: 'Bulb 1',
         reach: true,
