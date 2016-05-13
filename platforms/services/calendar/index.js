@@ -1,4 +1,3 @@
-//https://script.google.com/macros/s/AKfycbx_btcLSaB9N0So5Kwp_9iBNVJxP0enjAZk-cJpceFNpIG1YFM/exec?task=meetings&date=1461158509070
 'use strict';
 
 const got = require('got');
@@ -33,10 +32,9 @@ function buildUrl(key, date){
 function request(date){
   return getCredentials().then(function(credentials){
     let requestUrl = buildUrl(credentials.key, date);
-    console.log('url:', requestUrl);
-    return got(requestUrl, {
-      json: true
-    }).then(response => response.body);
+    //console.log('url:', requestUrl);
+    return got(requestUrl, { json: true })
+    .then(response => response.body);
   });
 };
 
