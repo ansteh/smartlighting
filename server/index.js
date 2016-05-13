@@ -3,17 +3,18 @@ const socketio = require('socket.io');
 
 const physical = require('../platforms/physical-net');
 const software = require('../platforms/software');
+const services = require('../platforms/services');
+
+services.calendar.get()
+.then(console.log)
+.catch(console.log);
 
 physical.login()
 .then(function(conf){
-  console.log('connected!', conf);
-  physical.getBridges()
-  .then(function(bridges){
-    console.log(bridges);
-  });
+  //console.log('connected!', conf);
 })
 .catch(function(err){
-  console.log('login error', err);
+  console.log('hue verification error', err);
 });
 
 module.exports = function(server){
