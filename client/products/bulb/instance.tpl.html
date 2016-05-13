@@ -27,6 +27,8 @@
     </md-card-title-text>
   </md-card-title>
 
+  <div>{{ bri | number:0 }}</div>
+  
   <div id="forecast" style="height: 400px;"></div>
 
   <!--<md-card-content>
@@ -41,6 +43,9 @@
     </md-button>
     <md-button class="md-icon-button" aria-label="training" ng-click="train()">
       <md-icon aria-label="training" class="material-icons" style="font-size: 24px;">update</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="bulb-switch" ng-click="switch()">
+      <md-icon aria-label="bulb-switch" class="material-icons" style="font-size: 24px;">lightbulb_outline</md-icon>
     </md-button>
     <md-button class="md-icon-button" aria-label="share">
       <md-icon aria-label="share" class="material-icons" style="font-size: 24px;">share_arrow</md-icon>

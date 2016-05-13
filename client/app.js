@@ -29,6 +29,9 @@ app.factory('Hue', function(Socket){
   })();
 
   Socket.on('lights', function(lights){
+    _.forOwn(lights, function(light, key){
+      light.index = key;
+    });
     events.publish('/lights', lights);
   });
 
@@ -40,10 +43,13 @@ app.factory('Hue', function(Socket){
       control: true
     }
   }];
-  
+
   return {
     onLights: function(cb){
       events.subscribe('/lights', cb);
+    },
+    onVerify: function(cb){
+      events.subscribe('/verify', cb);
     },
     dummyBulbs: dummyBulbs
   };

@@ -7,6 +7,9 @@ const software = require('../platforms/software');
 physical.login()
 .then(function(){
   console.log('connected!');
+})
+.catch(function(err){
+  console.log('login error', err);
 });
 
 module.exports = function(server){
@@ -17,10 +20,12 @@ module.exports = function(server){
     physical.getLights()
     .then(function(lights){
       //console.log(lights);
+      //physical.getLightByIndex(2).on();
       console.log(Object.keys(lights) + "lights found!");
       socket.emit('lights', lights);
     })
     .catch(function(err){
+      console.log(err);
       socket.emit('lights');
     });
 
@@ -36,6 +41,16 @@ module.exports = function(server){
 
     socket.on('day-forecast', function(product){
       socket.emit('day-forecast'+product.name, software.getDayForecastOf(product));
+    });
+
+    socket.on('switch', function(product){
+      physical.switchLight(product.index)
+      .then(function(){
+        socket.emit('switched'+product.name);
+      })
+      .catch(function(){
+        console.log('failed to switch bulb:', product);
+      });
     });
 
     socket.on('disconnect', function(){

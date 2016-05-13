@@ -41,10 +41,10 @@ app.directive('bulb', function(BulbStates, Socket){
     restrict: 'E',
     templateUrl: 'client/products/bulb/instance.tpl.html',
     scope: { item: '=' },
-    controller: function($scope, $element){
+    controller: function($scope, $element, $interval){
       $scope.item.state.control = true;
-
       $scope.states = BulbStates.states;
+      $scope.bri = 0;
 
       $scope.getStateValue = function(state, entity){
         return BulbStates.valueOf($scope.item.state, state, entity);
@@ -76,9 +76,19 @@ app.directive('bulb', function(BulbStates, Socket){
         });
       };
 
+      $interval($scope.forecast, 1000);
+
       Socket.on('forecast'+$scope.item.name, function(result){
-        console.log('forecast', result);
+        console.log('forecast', $scope.item.name, result);
+        $scope.bri = result.bri;
       });
+
+      $scope.switch = function(){
+        Socket.emit('switch', {
+          name: $scope.item.name,
+          index: $scope.item.index
+        });
+      };
     }
   };
 });

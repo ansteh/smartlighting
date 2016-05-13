@@ -9,14 +9,7 @@ var hue = new Hue();
 var configFile = path.resolve(__dirname, 'philips-hue.json');
 
 function login(){
-  return hue
-    .login(configFile)
-    .then(function(conf){
-      //let light = hue.light(2);
-    })
-    .catch(function(err){
-      console.error(err.stack || err);
-    });
+  return hue.login(configFile);
 };
 
 function getLights(){
@@ -37,10 +30,26 @@ function setState(light, state){
     .catch(console.error);
 };
 
+function switchLight(index){
+  let light = hue.light(index);
+  return light.getInfo()
+    .then(function(info){
+      //console.log(info);
+      if(info.state.on){
+        return light.off()
+        .then(console.log);
+      } else {
+        return light.on()
+        .then(console.log);
+      }
+    });
+};
+
 module.exports = {
   login: login,
   getLights: getLights,
   getLightByIndex: getLightByIndex,
   getLightInfo: getLightInfo,
-  setState: setState
+  setState: setState,
+  switchLight: switchLight
 };
