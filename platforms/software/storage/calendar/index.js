@@ -1,16 +1,16 @@
 'use strict';
-const path    = require('path');
-const _       = require('lodash');
-const low     = require('lowdb');
-const storage = require('lowdb/file-sync');
-const db      = low(path.resolve(__dirname, './calendar.json'), { storage });
-
-const calendar = require('../../../services').calendar;
+const resource = require('../../../services').calendar;
+const storage  = require('./storage');
 
 function request(date){
   return calendar.get(date);
-}
+};
+
+function save(day){
+  storage.save(day);
+};
 
 module.exports = {
-  request: request
+  request: request,
+  save: save
 };

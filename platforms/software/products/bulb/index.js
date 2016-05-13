@@ -6,6 +6,13 @@ const _        = require('lodash');
 
 const Calendar = require('../../storage').Calendar;
 
+console.log(Calendar);
+
+Calendar.save({
+  date: Date.now(),
+  meetings: 8
+});
+
 /*Calendar.request()
 .then(console.log);*/
 
