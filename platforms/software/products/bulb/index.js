@@ -1,8 +1,13 @@
 'use strict';
 
-const Storage = require('./storage');
-const Network = require('../../network');
-const _       = require('lodash');
+const Storage  = require('./storage');
+const Network  = require('../../network');
+const _        = require('lodash');
+
+const Calendar = require('../../storage').Calendar;
+
+/*Calendar.request()
+.then(console.log);*/
 
 var Bulb = function(product){
   if(Storage.has(product.name) === false){

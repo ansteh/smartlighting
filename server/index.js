@@ -5,10 +5,6 @@ const physical = require('../platforms/physical-net');
 const software = require('../platforms/software');
 const services = require('../platforms/services');
 
-services.calendar.get()
-.then(console.log)
-.catch(console.log);
-
 physical.login()
 .then(function(conf){
   //console.log('connected!', conf);
