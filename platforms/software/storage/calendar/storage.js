@@ -44,26 +44,45 @@ Calendar.all = function(){
 };
 
 Calendar.findByDate = function(date){
-  return _.find(Calendar.all(), { date: Calendar.code(date) });
+  return _.find(db(Calendar.table).value(), { date: Calendar.code(date) });
 };
 
-Calendar.has = function(date){
-  return _.isUndefined(Calendar.findByDate(date)) === false;
+Calendar.has = function(day){
+  return _.isUndefined(Calendar.findByDate(day.date)) === false;
 };
-
-/*Calendar.insertNetwork = function(name, json){
-  return db(Calendar.table)
-    .chain()
-    .find({ name: name })
-    .assign({ network: json})
-    .value();
-};*/
 
 Calendar.save = function(day){
   if(_.isUndefined(day)) return;
+
   if(Calendar.has(day.date) === false){
+    console.log('save!');
     db(Calendar.table).push(Calendar.serialize(day));
+  } else {
+    Calendar.update(day);
   }
+};
+
+Calendar.update = function(day){
+  return db(Calendar.table)
+    .chain()
+    .find({ date: Calendar.code(day.date) })
+    .assign({ meetings: day.meetings })
+    .value();
+};
+
+Calendar.filter = function(start){
+  if(_.isUndefined(start)) start = Date.now();
+  start = moment(Calendar.decode(Calendar.code(start)));
+
+  let days = db(Calendar.table)
+    .chain()
+    .filter(function(day){
+      let date = Calendar.decode(day.date);
+      return start.isSameOrBefore(moment(date))
+    })
+    .value();
+
+    return _.map(days, Calendar.deserialize);
 };
 
 module.exports = Calendar;

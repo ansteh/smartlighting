@@ -3,18 +3,19 @@
 const Storage  = require('./storage');
 const Network  = require('../../network');
 const _        = require('lodash');
+const moment   = require('moment');
 
 const Calendar = require('../../storage').Calendar;
 
-console.log(Calendar);
-
 Calendar.save({
-  date: Date.now(),
-  meetings: 8
+  date: new Date(),
+  meetings: 11
 });
 
 /*Calendar.request()
 .then(console.log);*/
+
+console.log(Calendar.days(moment('01-14-2016', 'MM-DD-YYYY')));
 
 var Bulb = function(product){
   if(Storage.has(product.name) === false){
