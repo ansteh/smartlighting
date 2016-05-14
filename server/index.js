@@ -36,12 +36,20 @@ module.exports = function(server){
     });
 
     socket.on('forecast', function(product){
-      //console.log(product);
-      socket.emit('forecast'+product.name, software.forecast(product));
+      software.forecast(product)
+      .then(function(result){
+        //console.log(result);
+        socket.emit('forecast'+product.name, result);
+      })
+      .catch(console.log);
     });
 
     socket.on('day-forecast', function(product){
-      socket.emit('day-forecast'+product.name, software.getDayForecastOf(product));
+      software.getDayForecastOf(product)
+      .then(function(result){
+        socket.emit('day-forecast'+product.name, result);
+      })
+      .catch(console.log);
     });
 
     socket.on('switch', function(product){

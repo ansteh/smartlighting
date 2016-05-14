@@ -32,7 +32,6 @@ function buildUrl(key, date){
 function request(date){
   return getCredentials().then(function(credentials){
     let requestUrl = buildUrl(credentials.key, date);
-    //console.log('url:', requestUrl);
     return got(requestUrl, { json: true })
     .then(response => response.body);
   });

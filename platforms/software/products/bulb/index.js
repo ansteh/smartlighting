@@ -17,7 +17,13 @@ const Calendar = require('../../storage').Calendar;
 
 //console.log(Calendar.days(moment('01-14-2016', 'MM-DD-YYYY')));
 
-Calendar.requestAndSaveAll();
+function updateCalendar(){
+  let start = moment().startOf('month').toDate();
+  return Calendar.requestAndSaveAll(start);
+};
+
+//Calendar.getMeetings().then(console.log).catch(console.log);
+//Calendar.getTodaysMeetings().then(console.log).catch(console.log);
 
 
 var Bulb = function(product){
@@ -37,14 +43,24 @@ Bulb.prototype.saveNetwork = function(network){
 };
 
 Bulb.prototype.forecast = function(date){
-  let meetings = 6;
-  return Network.forecast(this.instance.network, meetings, date);
+  if(_.isUndefined(date) || moment().date() === moment(date).date()){
+    return Calendar.getTodaysMeetings()
+    .then((meetings) => {
+      return Network.forecast(this.instance.network, meetings, date);
+    });
+  } else {
+    return Calendar.getMeetings(date)
+    .then((meetings) => {
+      return Network.forecast(this.instance.network, meetings, date);
+    });
+  }
 };
 
 Bulb.prototype.getDayForecast = function(){
-  let meetings = 6;
-  return Network.getDayForecast(this.instance.network, meetings);
-  //return Network.forecast(this.instance.network, meetings, date);
+  return Calendar.getTodaysMeetings()
+  .then((meetings) => {
+    return Network.getDayForecast(this.instance.network, meetings);
+  });
 };
 
 module.exports = Bulb;

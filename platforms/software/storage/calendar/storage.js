@@ -44,6 +44,7 @@ Calendar.all = function(){
 };
 
 Calendar.findByDate = function(date){
+  //console.log(_.find(db(Calendar.table).value(), { date: Calendar.code(date) }), date);
   return _.find(db(Calendar.table).value(), { date: Calendar.code(date) });
 };
 
@@ -54,8 +55,7 @@ Calendar.has = function(day){
 Calendar.save = function(day){
   if(_.isUndefined(day)) return;
 
-  if(Calendar.has(day.date) === false){
-    console.log('save!');
+  if(Calendar.has(day) === false){
     db(Calendar.table).push(Calendar.serialize(day));
   } else {
     Calendar.update(day);
