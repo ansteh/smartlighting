@@ -137,6 +137,6 @@ module.exports = {
 
     let trainer = new Trainer(network);
     trainer.train(set, config.trainer);
-    console.log(set);
+    return network;
   }
 };

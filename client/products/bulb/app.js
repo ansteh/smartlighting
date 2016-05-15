@@ -73,7 +73,7 @@ app.directive('bulb', function(BulbStates, Socket){
       $scope.updateChart();
 
       Socket.on('day-forecast'+$scope.item.name, function(result){
-        console.log(result);
+        //console.log(result);
         ForecastChart.render(result);
       });
 
@@ -84,7 +84,7 @@ app.directive('bulb', function(BulbStates, Socket){
       };
 
       Socket.on('trained', function(result){
-        console.log('trained', result);
+        //console.log('trained', result);
       });
 
       $scope.forecast = function(){
@@ -109,19 +109,20 @@ app.directive('bulb', function(BulbStates, Socket){
 
       Socket.on('switch'+$scope.item.name, function(state){
         $scope.item.state.on = state.on;
-        console.log(state);
+        //console.log(state);
         $scope.$apply();
       });
 
       $scope.briSetted = function(){
         Socket.emit('set-bri', {
           name: $scope.item.name,
-          bri: $scope.bri
+          bri: $scope.bri,
+          index: $scope.item.index
         });
       };
 
       Socket.on('set-bri'+$scope.item.name, function(response){
-        console.log(response);
+        //console.log(response);
         $scope.updateChart();
       });
 
@@ -134,7 +135,7 @@ app.directive('bulb', function(BulbStates, Socket){
       $scope.getMeetings();
 
       Socket.on('meetings'+$scope.item.name, function(result){
-        console.log(result);
+        //console.log(result);
         $scope.meetings = result.meetings;
         $scope.updateChart();
       });

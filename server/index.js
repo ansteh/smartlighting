@@ -68,7 +68,8 @@ module.exports = function(server){
     socket.on('set-bri', function(product){
       software.trainProductByState(product, { bri: product.bri })
       .then(function(response){
-        console.log(response);
+        console.log('trained:', response);
+        physical.setBri(product.index, product.bri);
         socket.emit('set-bri'+product.name, response);
       })
       .catch(function(err){

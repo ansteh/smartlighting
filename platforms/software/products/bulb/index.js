@@ -73,7 +73,10 @@ Bulb.prototype.trainByState = function(state){
       date: Date.now(),
       bri: state.bri
     };
-    return Network.trainByInput(data, this.instance.network);
+
+    let network = Network.trainByInput(data, this.instance.network);
+    this.saveNetwork(network);
+    this.instance.network = Network.import(this.instance.network)
   });
 };
 

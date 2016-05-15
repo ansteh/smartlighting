@@ -23,7 +23,8 @@ function getLights(){
 };
 
 function getLightByIndex(index){
-  return hue.light(index);
+  console.log(index);
+  return hue.light(index).catch(console.log);
 };
 
 function getLightInfo(light){
@@ -34,6 +35,11 @@ function setState(light, state){
   return light.setState(state)
     .then(console.log)
     .catch(console.error);
+};
+
+function setBri(index, bri){
+  let light = getLight(index);
+  return setState(light, { bri: parseFloat(bri, 10)});
 };
 
 const parseState = _.curry(function (name, response){
@@ -65,6 +71,10 @@ function getBridges(){
   return hue.getBridges();
 };
 
+function getLight(name){
+  return hue.light(name)
+};
+
 module.exports = {
   login: login,
   getLights: getLights,
@@ -72,5 +82,7 @@ module.exports = {
   getLightInfo: getLightInfo,
   setState: setState,
   switchLight: switchLight,
-  getBridges: getBridges
+  getBridges: getBridges,
+  setBri: setBri,
+  getLight: getLight
 };
