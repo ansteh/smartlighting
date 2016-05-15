@@ -37,9 +37,15 @@ const trainProductByState = function(product, state){
   return bulb.trainByState(state);
 };
 
+const getTodaysMeetings = function(product){
+  let bulb = getBulbBy(product);
+  return bulb.getTodaysMeetings();
+};
+
 module.exports = {
   train: train,
   forecast: forecast,
   getDayForecastOf: getDayForecastOf,
-  trainProductByState: trainProductByState
+  trainProductByState: trainProductByState,
+  getTodaysMeetings: getTodaysMeetings
 };

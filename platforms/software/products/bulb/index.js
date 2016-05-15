@@ -77,4 +77,8 @@ Bulb.prototype.trainByState = function(state){
   });
 };
 
+Bulb.prototype.getTodaysMeetings = function(state){
+  return Calendar.getTodaysMeetings();
+};
+
 module.exports = Bulb;

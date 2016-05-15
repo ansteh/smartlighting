@@ -65,6 +65,28 @@ module.exports = function(server){
       });
     });
 
+    socket.on('set-bri', function(product){
+      software.trainProductByState(product, { bri: product.bri })
+      .then(function(response){
+        console.log(response);
+        socket.emit('set-bri'+product.name, response);
+      })
+      .catch(function(err){
+        console.log('failed to train bri of bulb:', product);
+      });
+    });
+
+    socket.on('meetings', function(product){
+      software.getTodaysMeetings(product)
+      .then(function(meetings){
+        //console.log(meetings);
+        socket.emit('meetings'+product.name, { meetings: meetings });
+      })
+      .catch(function(err){
+        console.log('failed to get todays meetings:', product);
+      });
+    });
+
     socket.on('disconnect', function(){
       //console.log('Socket closed!');
     });

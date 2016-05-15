@@ -60,9 +60,7 @@ function createSets(count){
 function trainBy(set){
   let network = config.network();
   let trainer = new Trainer(network);
-
   trainer.train(set, config.trainer);
-
   return network;
 };
 
@@ -72,17 +70,9 @@ function logResult(network, testSet){
     let simulated = transition.reverse({ bri: point.output[0] }).bri;
     let forcast = transition.reverse({ bri: output[0] }).bri;
 
-    //console.log(point, simulated, forcast);
     console.log(error(simulated, forcast), simulated, forcast);
   });
 };
-
-/*let sets = createSets(1000);
-let network = trainBy(sets.train, sets.test);
-logResult(network, sets.test);
-
-var exported = myNetwork.toJSON();
-var imported = Network.fromJSON(exported);*/
 
 function prepare(point){
   let prepared = transition.prepare(point);
@@ -95,13 +85,14 @@ function reverse(result){
   return transition.reverse({ bri: result[0] });
 };
 
+const minuteSteps = 10;
 function createDayMarks(){
   let current = moment().hours(0).minutes(0).seconds(0).milliseconds(0);
   let tomorrow = moment().hours(0).minutes(0).seconds(0).milliseconds(0).add(1, 'days');
   let dates = [];
   while(current.isBefore(tomorrow)){
     dates.push(current.toDate().valueOf());
-    current.add(5, 'minutes');
+    current.add(minuteSteps, 'minutes');
   }
   return dates;
 };

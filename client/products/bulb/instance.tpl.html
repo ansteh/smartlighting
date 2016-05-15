@@ -21,22 +21,22 @@
   </md-card-header>
   <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
 
-  <md-card-title>
+  <!--<md-card-title>
     <md-card-title-text>
-      <span class="md-headline">Forecast</span>
+      <span class="md-headline">Today's meeting count: {{ meetings }}</span>
     </md-card-title-text>
-  </md-card-title>
+  </md-card-title>-->
+
+  <div style="padding: 0 16px;">Today's meeting count: {{ meetings }}</div>
 
   <div id="forecast" style="height: 400px;"></div>
 
   <!--<md-card-content>
     <p>
-
+      Today's meeting count: {{ meetings }}
     </p>
   </md-card-content>-->
 
-  <!--<div>{{ bri | number:0 }}</div>-->
-  <div>{{ meetings }}</div>
   <div layout layout-align="center center">
     <div layout flex="90">
       <div flex="10" layout layout-align="center center">

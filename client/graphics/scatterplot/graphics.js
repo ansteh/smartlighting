@@ -2,7 +2,7 @@ var Graphics = {};
 
 Graphics.scatter = function(options){
   var core = {
-    chart_type: 'point',
+    //chart_type: 'point',
     full_width: true,
     height: 400,
     right: 10,
@@ -15,13 +15,24 @@ Graphics.scatter = function(options){
     //least_squares: true
   };
 
+  var graph;
   function render(data){
+    if(_.isUndefined(graph)){
+      options.data = options.enhance(data);
+      graph = _.merge(core, options);
+    } else {
+      graph.data = options.enhance(data);
+    }
+    MG.data_graphic(graph);
+  };
+
+  function update(data){
     options.data = options.enhance(data);
-    MG.data_graphic(_.merge(core, options));
   };
 
   return {
-    render: render
+    render: render,
+    update: update
   };
 };
 
@@ -35,6 +46,7 @@ Graphics.meetings = function(target){
   };
 
   var options =  {
+    chart_type: 'point',
     target: target,
     title: "Bri vs Meetings",
     enhance: enhance,
@@ -69,6 +81,7 @@ Graphics.hours = function(target){
   };
 
   var options =  {
+    chart_type: 'point',
     target: target,
     title: "Bri vs Hours",
     enhance: enhance,
@@ -92,6 +105,10 @@ Graphics.dayforecast = function(target){
   };
 
   var options =  {
+    //chart_type: 'bar',
+    //bar_orientation: 'vertical',
+    area: false,
+    color: 'rgb(255,64,129)',
     target: target,
     //title: "Forecast",
     enhance: enhance,
