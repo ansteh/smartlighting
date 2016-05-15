@@ -1,3 +1,17 @@
+app.directive('intToNumber', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(value) {
+        return '' + value;
+      });
+      ngModel.$formatters.push(function(value) {
+        return parseFloat(value, 10);
+      });
+    }
+  };
+});
+
 app.factory('BulbStates', function(){
   var States = BulbStateSchema;
 
@@ -41,7 +55,7 @@ app.directive('bulb', function(BulbStates, Socket){
     restrict: 'E',
     templateUrl: 'client/products/bulb/instance.tpl.html',
     scope: { item: '=' },
-    controller: function($scope, $element, $interval){
+    controller: function($scope, $element, $interval, $filter){
       $scope.item.state.control = true;
       $scope.states = BulbStates.states;
       $scope.bri = 0;
@@ -79,8 +93,8 @@ app.directive('bulb', function(BulbStates, Socket){
       $interval($scope.forecast, 1000);
 
       Socket.on('forecast'+$scope.item.name, function(result){
-        console.log('forecast', $scope.item.name, result);
-        $scope.bri = result.bri;
+        //console.log('forecast', $scope.item.name, result);
+        $scope.bri = $filter('number')(result.bri, 0);
       });
 
       $scope.switch = function(){

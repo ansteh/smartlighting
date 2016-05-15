@@ -27,8 +27,6 @@
     </md-card-title-text>
   </md-card-title>
 
-  <div>{{ bri | number:0 }}</div>
-  
   <div id="forecast" style="height: 400px;"></div>
 
   <!--<md-card-content>
@@ -36,6 +34,20 @@
 
     </p>
   </md-card-content>-->
+
+  <!--<div>{{ bri | number:0 }}</div>-->
+  <div layout layout-align="center center">
+    <div layout flex="90">
+      <div flex="10" layout layout-align="center center">
+        <span class="md-body-1">Bri</span>
+      </div>
+      <md-slider flex min="0" max="255" ng-model="bri" aria-label="red" id="red-slider" class>
+      </md-slider>
+      <div flex="20" layout layout-align="center center">
+        <input flex type="number" int-to-number ng-model="bri" aria-label="red" aria-controls="red-slider">
+      </div>
+    </div>
+  </div>
 
   <md-card-actions layout="row" layout-align="end center">
     <md-button class="md-icon-button" aria-label="show_chart" ng-click="forecast()">

@@ -7,7 +7,7 @@ const services = require('../platforms/services');
 
 physical.login()
 .then(function(conf){
-  //console.log('connected!', conf);
+  console.log('connected!', conf);
 })
 .catch(function(err){
   console.log('hue verification error', err);
