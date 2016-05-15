@@ -22,6 +22,8 @@ function updateCalendar(){
   return Calendar.requestAndSaveAll(start);
 };
 
+//updateCalendar();
+
 //Calendar.getMeetings().then(console.log).catch(console.log);
 //Calendar.getTodaysMeetings().then(console.log).catch(console.log);
 

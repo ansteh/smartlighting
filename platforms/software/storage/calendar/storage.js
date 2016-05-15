@@ -37,14 +37,14 @@ Calendar.deserialize = function(day){
 };
 
 Calendar.all = function(){
-  return db(Calendar.table)
+  let days = db(Calendar.table)
     .chain()
-    .map(Calendar.deserialize)
     .value();
+
+  return _.map(days, Calendar.deserialize);
 };
 
 Calendar.findByDate = function(date){
-  //console.log(_.find(db(Calendar.table).value(), { date: Calendar.code(date) }), date);
   return _.find(db(Calendar.table).value(), { date: Calendar.code(date) });
 };
 
@@ -56,6 +56,7 @@ Calendar.save = function(day){
   if(_.isUndefined(day)) return;
 
   if(Calendar.has(day) === false){
+    console.log('save not found:', day);
     db(Calendar.table).push(Calendar.serialize(day));
   } else {
     Calendar.update(day);
@@ -63,6 +64,8 @@ Calendar.save = function(day){
 };
 
 Calendar.update = function(day){
+  console.log('update', day);
+
   return db(Calendar.table)
     .chain()
     .find({ date: Calendar.code(day.date) })
@@ -76,13 +79,14 @@ Calendar.filter = function(start){
 
   let days = db(Calendar.table)
     .chain()
-    .filter(function(day){
-      let date = Calendar.decode(day.date);
-      return start.isSameOrBefore(moment(date))
-    })
     .value();
 
-    return _.map(days, Calendar.deserialize);
+  days = _.filter(days, function(day){
+    let date = Calendar.decode(day.date);
+    return start.isSameOrBefore(moment(date))
+  });
+
+  return _.map(days, Calendar.deserialize);
 };
 
 Calendar.saveAll = function(days){
