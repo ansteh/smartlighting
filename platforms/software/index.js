@@ -32,8 +32,14 @@ const getDayForecastOf = function(product){
   return bulb.getDayForecast();
 };
 
+const trainProductByState = function(product, state){
+  let bulb = getBulbBy(product);
+  return bulb.trainByState(state);
+};
+
 module.exports = {
   train: train,
   forecast: forecast,
-  getDayForecastOf: getDayForecastOf
+  getDayForecastOf: getDayForecastOf,
+  trainProductByState: trainProductByState
 };

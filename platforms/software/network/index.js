@@ -126,7 +126,6 @@ module.exports = {
     return reverse(network.activate(input));
   },
   getDayForecast: function(network, meetings){
-    meetings = 6;
     return _.map(createDayMarks(), function(value){
       let input = prepare({ meetings: meetings, date: new Date(value) });
       return {
@@ -134,5 +133,19 @@ module.exports = {
         bri: reverse(network.activate(input)).bri
       };
     });
+  },
+  trainByInput: function(data, network){
+    let prepared = transition.prepare(data);
+    let input = _.values(_.pick(prepared, config.transition.date.pattern));
+    input.push(prepared.meetings);
+
+    let set = [{
+      input: input,
+      output: [prepared.bri]
+    }];
+
+    let trainer = new Trainer(network);
+    trainer.train(set, config.trainer);
+    console.log(set);
   }
 };

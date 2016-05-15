@@ -5,6 +5,8 @@ const physical = require('../platforms/physical-net');
 const software = require('../platforms/software');
 const services = require('../platforms/services');
 
+//software.trainProductByState({ name: 'Bulb 1'}, { bri: 195 });
+
 physical.login()
 .then(function(conf){
   console.log('connected!', conf);

@@ -63,4 +63,16 @@ Bulb.prototype.getDayForecast = function(){
   });
 };
 
+Bulb.prototype.trainByState = function(state){
+  return Calendar.getTodaysMeetings()
+  .then((meetings) => {
+    let data = {
+      meetings: meetings,
+      date: Date.now(),
+      bri: state.bri
+    };
+    return Network.trainByInput(data, this.instance.network);
+  });
+};
+
 module.exports = Bulb;
