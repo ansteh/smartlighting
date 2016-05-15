@@ -27,13 +27,17 @@ Calendar.decode = function(string){
 };
 
 Calendar.serialize = function(day){
-  day.date = Calendar.code(day.date);
-  return day;
+  return {
+    date: Calendar.code(new Date(day.date.valueOf())),
+    meetings: day.meetings
+  };
 };
 
 Calendar.deserialize = function(day){
-  day.date = Calendar.decode(day.date);
-  return day;
+  return {
+    date: Calendar.decode(day.date),
+    meetings: day.meetings
+  };
 };
 
 Calendar.all = function(){
@@ -54,18 +58,14 @@ Calendar.has = function(day){
 
 Calendar.save = function(day){
   if(_.isUndefined(day)) return;
-
-  if(Calendar.has(day) === false){
-    console.log('save not found:', day);
-    db(Calendar.table).push(Calendar.serialize(day));
-  } else {
+  if(Calendar.has(day)){
     Calendar.update(day);
+  } else {
+    db(Calendar.table).push(Calendar.serialize(day));
   }
 };
 
 Calendar.update = function(day){
-  console.log('update', day);
-
   return db(Calendar.table)
     .chain()
     .find({ date: Calendar.code(day.date) })
@@ -81,12 +81,12 @@ Calendar.filter = function(start){
     .chain()
     .value();
 
-  days = _.filter(days, function(day){
+  let filteredDays = _.filter(days, function(day){
     let date = Calendar.decode(day.date);
     return start.isSameOrBefore(moment(date))
   });
 
-  return _.map(days, Calendar.deserialize);
+  return _.map(filteredDays, Calendar.deserialize);
 };
 
 Calendar.saveAll = function(days){
