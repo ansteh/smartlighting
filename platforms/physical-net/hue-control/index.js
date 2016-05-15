@@ -1,7 +1,7 @@
 'use strict';
-const path = require('path');
+const path  = require('path');
 var CronJob = require('cron').CronJob;
-
+const _     = require('lodash');
 
 
 var Hue = require('philips-hue');
@@ -36,17 +36,27 @@ function setState(light, state){
     .catch(console.error);
 };
 
+const parseState = _.curry(function (name, response){
+  let originState = _.get(response, '0.success');
+  let state = {};
+  if(originState){
+    let keys = _.keys(originState);
+    state[name] = originState[keys[0]];
+  }
+  return state;
+});
+
+const parseSwitchState = parseState('on');
+
 function switchLight(index){
   let light = hue.light(index);
   return light.getInfo()
     .then(function(info){
       //console.log(info);
       if(info.state.on){
-        return light.off()
-        .then(console.log);
+        return light.off().then(parseSwitchState);
       } else {
-        return light.on()
-        .then(console.log);
+        return light.on().then(parseSwitchState);
       }
     });
 };

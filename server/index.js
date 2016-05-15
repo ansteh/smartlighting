@@ -56,8 +56,8 @@ module.exports = function(server){
 
     socket.on('switch', function(product){
       physical.switchLight(product.index)
-      .then(function(){
-        socket.emit('switched'+product.name);
+      .then(function(state){
+        socket.emit('switch'+product.name, state);
       })
       .catch(function(){
         console.log('failed to switch bulb:', product);

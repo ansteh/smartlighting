@@ -39,12 +39,11 @@ app.directive('bulbInsight', function(Hue){
       Hue.onLights(function(lights){
         console.log('Here are the lights:', lights);
 
+        $scope.bulbs = lights;
         if(_.keys(lights).length === 0){
             $scope.bulbs = Hue.dummyBulbs;
-            $scope.$apply();
-        } else {
-          $scope.bulbs = lights;
         }
+        $scope.$apply();
       });
     }
   };
@@ -103,6 +102,12 @@ app.directive('bulb', function(BulbStates, Socket){
           index: $scope.item.index
         });
       };
+
+      Socket.on('switch'+$scope.item.name, function(state){
+        $scope.item.state.on = state.on;
+        console.log(state);
+        $scope.$apply();
+      });
     }
   };
 });
