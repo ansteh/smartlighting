@@ -42,10 +42,10 @@
       <div flex="10" layout layout-align="center center">
         <span class="md-body-1">Bri</span>
       </div>
-      <md-slider flex min="0" max="255" ng-model="bri" aria-label="red" id="red-slider" class>
+      <md-slider ng-click="briSetted()" flex min="0" max="255" ng-model="bri" aria-label="red" id="red-slider">
       </md-slider>
       <div flex="20" layout layout-align="center center">
-        <input flex type="number" int-to-number ng-model="bri" aria-label="red" aria-controls="red-slider">
+        <input flex type="number" int-to-number ng-model="bri" aria-label="red" aria-controls="red-slider" ng-disabled="true">
       </div>
     </div>
   </div>

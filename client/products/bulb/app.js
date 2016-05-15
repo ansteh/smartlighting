@@ -108,6 +108,14 @@ app.directive('bulb', function(BulbStates, Socket){
         console.log(state);
         $scope.$apply();
       });
+
+      $scope.briSetted = function(){
+        console.log('bri changed', $scope.bri);
+        Socket.emit('switch', {
+          name: $scope.item.name,
+          index: $scope.item.index
+        });
+      };
     }
   };
 });

@@ -7,7 +7,7 @@ Graphics.scatter = function(options){
     height: 400,
     right: 10,
     target: options.target,
-    min_y: 120,
+    min_y: 0,
     color_accessor:'z',
     color_range: ['#000', 'yellow'],
     //x_rug: true,
@@ -93,7 +93,7 @@ Graphics.dayforecast = function(target){
 
   var options =  {
     target: target,
-    title: "Forecast",
+    //title: "Forecast",
     enhance: enhance,
     x_accessor: 'date',
     y_accessor: 'bri',

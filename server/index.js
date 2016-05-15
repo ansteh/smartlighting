@@ -49,6 +49,7 @@ module.exports = function(server){
     socket.on('day-forecast', function(product){
       software.getDayForecastOf(product)
       .then(function(result){
+        //console.log(result);
         socket.emit('day-forecast'+product.name, result);
       })
       .catch(console.log);
