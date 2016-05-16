@@ -3,7 +3,7 @@ a smart light control system as web service featuring Philips Hue API and synapt
 
 <h1 align="center">
 	<br>
-	<img width="360" src="https://rawgit.com/ansteh/smartlighting/tree/master/images/readme.JPG" alt="smartlighting">
+	<img width="360" src="https://rawgit.com/ansteh/smartlighting/master/images/readme.JPG" alt="smartlighting">
 	<br>
 	<br>
 	<br>
@@ -31,4 +31,4 @@ a smart light control system as web service featuring Philips Hue API and synapt
 - with new router: delete smartlighting/platforms/physical-net/hue-control/philips-hue.json
 - go to root folder of project and type: node index.js
 - for the first time you might need to push the Philips Hue Bridge button to verify the bulbs, then restart
-- open browser and visit http://localhost:3000/
+- open browser and visit [http://localhost:3000/](http://localhost:3000/)
