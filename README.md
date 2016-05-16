@@ -3,7 +3,7 @@ a smart light control system as web service featuring Philips Hue API and synapt
 
 <h1 align="center">
 	<br>
-	<img width="360" src="https://rawgit.com/ansteh/smartlighting/master/images/readme.JPG" alt="smartlighting">
+	<img width="600" src="https://rawgit.com/ansteh/smartlighting/master/images/readme.JPG" alt="smartlighting">
 	<br>
 	<br>
 	<br>
