@@ -53,15 +53,24 @@
   <md-card-actions layout="row" layout-align="end center">
     <md-button class="md-icon-button" aria-label="show_chart" ng-click="forecast()">
       <md-icon aria-label="show_chart" class="material-icons" style="font-size: 24px;">show_chart</md-icon>
+      <md-tooltip md-direction="bottom">
+        trigger a forecast manually
+      </md-tooltip>
     </md-button>
     <md-button class="md-icon-button" aria-label="training" ng-click="train()">
       <md-icon aria-label="training" class="material-icons" style="font-size: 24px;">update</md-icon>
+      <md-tooltip md-direction="bottom">
+        simulate training data for the neural net
+      </md-tooltip>
     </md-button>
     <md-button class="md-icon-button" aria-label="bulb-switch" ng-click="switch()">
       <md-icon aria-label="bulb-switch" class="material-icons" style="font-size: 24px;">lightbulb_outline</md-icon>
+      <md-tooltip md-direction="bottom">
+        switch the bulb
+      </md-tooltip>
     </md-button>
-    <md-button class="md-icon-button" aria-label="share">
+    <!--<md-button class="md-icon-button" aria-label="share">
       <md-icon aria-label="share" class="material-icons" style="font-size: 24px;">share_arrow</md-icon>
-    </md-button>
+    </md-button>-->
   </md-card-actions>
 </md-card>
