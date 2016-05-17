@@ -35,7 +35,7 @@ function updateState(){
               software.trainProductByState(product, { bri: info.state.bri })
               .then(function(response){
                 console.log('trained by updateState:');
-                physical.setBri(product.index, product.bri);
+                physical.setBri(product.index, info.state.bri);
               });
             } else {
               console.log('continue with forecast!');
