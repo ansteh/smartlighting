@@ -21,7 +21,7 @@ function appyForecastFor(product){
 
 function updateState(){
   return new CronJob('* * * * * *', function() {
-    console.log('You will see this message every second');
+    console.log('watch state and learn:');
     physical.getLights()
     .then(function(lights){
       Object.keys(lights).forEach(function(index){
@@ -38,6 +38,7 @@ function updateState(){
                 physical.setBri(product.index, product.bri);
               });
             } else {
+              console.log('continue with forecast!');
               appyForecastFor(product);
             }
           }
