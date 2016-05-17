@@ -7,6 +7,18 @@ const services = require('../platforms/services');
 
 const CronJob = require('cron').CronJob;
 
+let lastBriForecast;
+
+function appyForecastFor(product){
+  return software.forecast(product)
+  .then(function(result){
+    result.bri = parseInt(result.bri);
+    lastBriForecast = result.bri;
+    return result;
+  })
+  .catch(console.log);
+};
+
 function updateState(){
   return new CronJob('* * * * * *', function() {
     console.log('You will see this message every second');
@@ -17,11 +29,17 @@ function updateState(){
         light.getInfo()
         .then(function(info){
           if(info.state.reachable){
-            software.trainProductByState({ name: info.name, index: index }, { bri: info.state.bri })
-            .then(function(response){
-              //console.log('trained by updateState:');
-              physical.setBri(product.index, product.bri);
-            });
+            let product = { name: info.name, index: index };
+            if(info.state.bri !== lastBriForecast){
+              console.log('new bri input inserted!');
+              software.trainProductByState(product, { bri: info.state.bri })
+              .then(function(response){
+                console.log('trained by updateState:');
+                physical.setBri(product.index, product.bri);
+              });
+            } else {
+              appyForecastFor(product);
+            }
           }
         });
       });
@@ -65,12 +83,9 @@ module.exports = function(server){
     });
 
     socket.on('forecast', function(product){
-      software.forecast(product)
-      .then(function(result){
-        //console.log(result);
+      appyForecastFor(product).then(function(result){
         socket.emit('forecast'+product.name, result);
-      })
-      .catch(console.log);
+      });
     });
 
     socket.on('day-forecast', function(product){
